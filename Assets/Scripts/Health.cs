@@ -19,19 +19,21 @@ public class Health : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _health -= Mathf.Clamp(damage, 0, MaxHealth);
+        _health = Mathf.Clamp(_health, 0, MaxHealth);
         HealthChanged?.Invoke(_health);
 
         if (_health <= 0)
-            Kill();
+            Die();
     }
 
     public void Heal(int value)
     {
-        _health += Math.Clamp(value, 0, int.MaxValue);
+        _health += Mathf.Clamp(value, 0, MaxHealth);
+        _health = Mathf.Clamp(_health, 0, MaxHealth);
         HealthChanged?.Invoke(_health);
     }
 
-    private void Kill()
+    private void Die()
     {
         Died?.Invoke();
     }

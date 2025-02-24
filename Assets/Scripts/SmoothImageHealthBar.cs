@@ -4,10 +4,16 @@ using UnityEngine.UI;
 
 public class SmoothImageHealthBar : HealthBar
 {
-    [SerializeField] private Image _bar;
+    [SerializeField] private Slider _slider;
     [SerializeField] private float _smoothDuration;
 
     private Coroutine _coroutine;
+
+    private void Awake()
+    {
+        _slider.maxValue = Health.MaxHealth;
+        _slider.value = Health.MaxHealth;
+    }
 
     protected override void OnDamaged(int health)
     {
@@ -19,16 +25,16 @@ public class SmoothImageHealthBar : HealthBar
 
     private IEnumerator Show(int health)
     {
-        float currentHealth = _bar.fillAmount * Health.MaxHealth;
+        float currentHealth = _slider.value;
+        float intermediateValue = 0;
         float time = 0;
 
         while (time < _smoothDuration)
         {
             time += Time.deltaTime;
-            currentHealth = Mathf.MoveTowards(currentHealth, health, (Health.MaxHealth / _smoothDuration) * Time.deltaTime);
-            _bar.fillAmount = currentHealth / Health.MaxHealth;
-
-            print(123);
+            float normalizedTime = time / _smoothDuration;
+            intermediateValue = Mathf.Lerp(currentHealth, health, normalizedTime);
+            _slider.value = intermediateValue;
 
             yield return null;
         }
