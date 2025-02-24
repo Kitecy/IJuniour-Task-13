@@ -7,6 +7,6 @@ public class ImageHealthBar : HealthBar
 
     protected override void OnDamaged(int health)
     {
-        _bar.fillAmount = (float)health / maxHealth;
+        _bar.fillAmount = (float)health / Health.MaxHealth;
     }
 }
