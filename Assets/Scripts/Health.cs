@@ -3,34 +3,34 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    private int _health;
+    private int _value;
 
-    public event Action<int> HealthChanged;
+    public event Action<int> ValueChanged;
     public event Action Died;
 
     [field: SerializeField]
-    public int MaxHealth { get; private set; }
+    public int MaxValue { get; private set; }
 
     private void Awake()
     {
-        _health = MaxHealth;
+        _value = MaxValue;
     }
 
     public void TakeDamage(int damage)
     {
-        _health -= Mathf.Clamp(damage, 0, MaxHealth);
-        _health = Mathf.Clamp(_health, 0, MaxHealth);
-        HealthChanged?.Invoke(_health);
+        _value -= Mathf.Clamp(damage, 0, MaxValue);
+        _value = Mathf.Clamp(_value, 0, MaxValue);
+        ValueChanged?.Invoke(_value);
 
-        if (_health <= 0)
+        if (_value <= 0)
             Die();
     }
 
     public void Heal(int value)
     {
-        _health += Mathf.Clamp(value, 0, MaxHealth);
-        _health = Mathf.Clamp(_health, 0, MaxHealth);
-        HealthChanged?.Invoke(_health);
+        _value += Mathf.Clamp(value, 0, MaxValue);
+        _value = Mathf.Clamp(_value, 0, MaxValue);
+        ValueChanged?.Invoke(_value);
     }
 
     private void Die()

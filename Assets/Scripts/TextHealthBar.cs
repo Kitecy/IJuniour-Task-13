@@ -7,6 +7,6 @@ public class TextHealthBar : HealthBar
 
     protected override void OnDamaged(int health)
     {
-        _text.text = $"{health}/{Health.MaxHealth}";
+        _text.text = $"{health}/{Health.MaxValue}";
     }
 }

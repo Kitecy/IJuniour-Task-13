@@ -11,8 +11,8 @@ public class SmoothImageHealthBar : HealthBar
 
     private void Awake()
     {
-        _slider.maxValue = Health.MaxHealth;
-        _slider.value = Health.MaxHealth;
+        _slider.maxValue = Health.MaxValue;
+        _slider.value = Health.MaxValue;
     }
 
     protected override void OnDamaged(int health)
